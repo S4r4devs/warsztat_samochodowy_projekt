@@ -1,0 +1,42 @@
+Table Klient {
+id_klienta integer [pk, increment]
+imie varchar(50)
+nazwisko varchar(50)
+telefon varchar(15)
+email varchar(100)
+}
+
+Table Mechanik {
+id_mechanika integer [pk, increment]
+imie varchar(50)
+nazwisko varchar(50)
+specjalizacja varchar(100)
+telefon varchar(15)
+}
+
+Table Pojazd {
+id_pojazdu integer [pk, increment]
+id_klienta integer [ref: > Klient.id_klienta]
+marka varchar(50)
+model varchar(50)
+rok_produkcji integer
+nr_rejestracyjny varchar(10) [unique]
+}
+
+Table Zlecenie {
+id_zlecenia integer [pk, increment]
+id_pojazdu integer [ref: > Pojazd.id_pojazdu]
+id_mechanika integer [ref: > Mechanik.id_mechanika]
+data_przyjecia date
+data_wydania date
+opis_usterki text
+status varchar(20)
+}
+
+Table Faktura {
+id_faktury integer [pk, increment]
+id_zlecenia integer [ref: - Zlecenie.id_zlecenia]
+data_wystawienia date
+kwota_netto decimal
+kwota_brutto decimal
+}
